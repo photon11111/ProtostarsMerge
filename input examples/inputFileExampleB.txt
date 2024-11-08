@@ -1,0 +1,7 @@
+Model: B
+M_1: 0.1
+M_2: 10
+beta: 2.35
+N: 1000
+L: 10
+experiments number: 100
