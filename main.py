@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 from scipy.optimize import curve_fit
 import logging
 import multiprocessing as mp
@@ -98,17 +99,20 @@ def get_best_model(masses):
 
 
 
-def plot_model(model, popt, x, y, output_file="outputFile.pdf"):
+def plot_model(model, popt, x, y, pdf):
     model_func = models_for_fitting[model].Func
     y_fit = [model_func(arg, *popt) for arg in x]
 
+    plt.figure()
     plt.bar(x, y, color='blue', label='Histogram')
     plt.plot(x, y_fit, 'r-', label=f'fitted on model: {model}')
     plt.xlabel('mass')
     plt.ylabel('probability density')
     plt.legend()
+    pdf.savefig()
+    plt.close()
 
-    plt.savefig(output_file, format='pdf')
+
 
 
 #main code
@@ -126,6 +130,10 @@ distribution_params_default = MassDistributionParams(
 )
 
 distribution_params = read_model_parameters(distribution_params_default)
+
 final_masses = monte_carlo_simulation(distribution_params)
 model, popt, hist_x, hist_y = get_best_model(final_masses)
-plot_model(model, popt, hist_x, hist_y)
+
+pdf = PdfPages("outputFile.pdf")
+plot_model(model, popt, hist_x, hist_y, pdf)
+pdf.close()

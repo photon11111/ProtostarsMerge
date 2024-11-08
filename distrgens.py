@@ -11,7 +11,8 @@ def generate_power_law_distribution(distribution_params):
 
 def generate_lognormal_law_distribution(distribution_params):
     masses = np.random.lognormal(distribution_params.x0, distribution_params.sigma, distribution_params.N)
-    return [distribution_params.M1 + (distribution_params.M2 - distribution_params.M1) * mass for mass in masses]
+    masses_normalized = (masses - np.min(masses)) / (np.max(masses) - np.min(masses))
+    return [distribution_params.M1 + (distribution_params.M2 - distribution_params.M1) * mass for mass in masses_normalized]
 
 #dictionary for generators for delegate-like usage
 model_distribution_generators = {
