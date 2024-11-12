@@ -26,8 +26,6 @@ def read_uniform_distribution_params(stream, modelKey, distribution_params_defau
     return MassDistributionParams(
         model = modelKey,
         M0 = M0_local,
-        M1 = distribution_params_default.M1,
-        M2 = distribution_params_default.M2,
         beta = distribution_params_default.beta,
         x0 = distribution_params_default.x0,
         sigma = distribution_params_default.sigma,
@@ -38,10 +36,6 @@ def read_uniform_distribution_params(stream, modelKey, distribution_params_defau
 
 
 def read_power_law_distribution_params(stream, modelKey, distribution_params_default: MassDistributionParams):
-    M1_local = get_float_from_file_or_default(stream, "M1", distribution_params_default.M1)
-
-    M2_local = get_float_from_file_or_default(stream, "M2", distribution_params_default.M2)
-    
     beta_local = get_float_from_file_or_default(stream, "beta", distribution_params_default.beta)
     if beta_local < 2.0 or beta_local > 3.0:
         beta_local = distribution_params_default.beta
@@ -56,8 +50,6 @@ def read_power_law_distribution_params(stream, modelKey, distribution_params_def
     return MassDistributionParams(
         model = modelKey,
         M0 = distribution_params_default.M0,
-        M1 = M1_local,
-        M2 = M2_local,
         beta = beta_local,
         x0 = distribution_params_default.x0,
         sigma = distribution_params_default.sigma,
@@ -66,11 +58,7 @@ def read_power_law_distribution_params(stream, modelKey, distribution_params_def
         MonteCarloExperimentsNumber = monte_carlo_experiments_number_local
     )
 
-def read_lognormal_law_distribution_params(stream, modelKey, distribution_params_default: MassDistributionParams):
-    M1_local = get_float_from_file_or_default(stream, "M1", distribution_params_default.M1)
-
-    M2_local = get_float_from_file_or_default(stream, "M2", distribution_params_default.M2)
-    
+def read_lognormal_law_distribution_params(stream, modelKey, distribution_params_default: MassDistributionParams):    
     x0_local = get_float_from_file_or_default(stream, "x0", distribution_params_default.x0)
 
     sigma_local = get_float_from_file_or_default(stream, "sigma", distribution_params_default.sigma)
@@ -84,8 +72,6 @@ def read_lognormal_law_distribution_params(stream, modelKey, distribution_params
     return MassDistributionParams(
         model = modelKey,
         M0 = distribution_params_default.M0,
-        M1 = M1_local,
-        M2 = M2_local,
         beta = distribution_params_default.beta,
         x0 = x0_local,
         sigma = sigma_local,

@@ -63,7 +63,7 @@ def analyse_sample(masses, accuracy = 1e-5):
             j += 1
 
         mass_values.append(masses[i])
-        mass_probabilities.append((j - i))
+        mass_probabilities.append((j - i) / len(masses))
         i = j
 
     return mass_values, mass_probabilities
@@ -103,16 +103,13 @@ def plot_model(model, popt, x, y, pdf):
     y_fit = [model_func(arg, *popt) for arg in x]
 
     plt.figure()
-    plt.hist(masses, bins = 1000)
+    plt.bar(x, y, color='blue', label='Histogram')
+    plt.plot(x, y_fit, 'r-', label=f'fitted on model: {model}')
     plt.xlabel('mass')
-    plt.ylabel('count')
+    plt.ylabel('probability density')
+    plt.legend()
     pdf.savefig()
     plt.close()
-
-    x, y = analyse_sample(masses)
-
-    print(x)
-    print(y)
 
 
 
@@ -120,8 +117,6 @@ def plot_model(model, popt, x, y, pdf):
 distribution_params_default = MassDistributionParams(
     model = "",
     M0 = 1.0,
-    M1 = 0.1,
-    M2 = 10.0,
     beta = 2.35,
     x0 = 0.0,
     sigma = 1.0,
@@ -132,6 +127,9 @@ distribution_params_default = MassDistributionParams(
 
 distribution_params = read_model_parameters(distribution_params_default)
 
-pdf = PdfPages("initial.pdf")
-plot_model(distribution_params, pdf)
+final_masses = monte_carlo_simulation(distribution_params)
+model, popt, hist_x, hist_y = get_best_model(final_masses)
+
+pdf = PdfPages("outputFile.pdf")
+plot_model(model, popt, hist_x, hist_y, pdf)
 pdf.close()
