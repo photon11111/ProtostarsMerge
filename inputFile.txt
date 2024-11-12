@@ -1,8 +1,5 @@
-Model: C
-M_1: 0.1
-M_2: 10
-x_0: 0.0
-sigma: 1.0
+model: A
+M_0: 1.0
 N: 100000
 L: 99000
 experiments number: 100

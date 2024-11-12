@@ -19,7 +19,6 @@ logging.basicConfig(
     ]
 )
 
-
 def merge_stars(masses):
     if (len(masses) < 2):
         return
@@ -32,8 +31,10 @@ def merge_stars(masses):
 
 def run_experiment(distribution_params):
     masses = model_distribution_generators[distribution_params.model](distribution_params)
+
     for _ in range(distribution_params.L):
         merge_stars(masses)
+        
     return masses
 
 def monte_carlo_simulation(distribution_params, num_workers=4):
@@ -97,8 +98,6 @@ def get_best_model(masses):
 
     return best_model, best_popt, x, y
 
-
-
 def plot_model(model, popt, x, y, pdf):
     model_func = models_for_fitting[model].Func
     y_fit = [model_func(arg, *popt) for arg in x]
@@ -111,6 +110,7 @@ def plot_model(model, popt, x, y, pdf):
     plt.legend()
     pdf.savefig()
     plt.close()
+
 
 
 
