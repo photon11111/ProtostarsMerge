@@ -18,14 +18,8 @@ def read_uniform_distribution_params(stream, modelKey, distribution_params_defau
     M0_local = get_float_from_file_or_default(stream, "M0", distribution_params_default.M0)
 
     N_local = get_int_from_file_or_default(stream, "N", distribution_params_default.N)
-    if N_local < 1e3 or N_local > 1e7: 
-        N_local = distribution_params_default.N
-        logging.warning(f"invalid N value. Using default value N = {N_local}")
 
     L_local = get_int_from_file_or_default(stream, "L", distribution_params_default.L)
-    if N_local - L_local > 1e6 or N_local - L_local < 1e2:
-        L_local = N_local - int(1e2)
-        logging.warning(f"invalid L value. Using L = {L_local}")
 
     monte_carlo_experiments_number_local = get_int_from_file_or_default(stream, "monte_carlo_experiments_number", distribution_params_default.MonteCarloExperimentsNumber)
 
@@ -54,14 +48,8 @@ def read_power_law_distribution_params(stream, modelKey, distribution_params_def
         logging.warning(f"invalid beta value. Using default value beta = {beta_local}")
 
     N_local = get_int_from_file_or_default(stream, "N", distribution_params_default.N)
-    if N_local < 1e3 or N_local > 1e7: 
-        N_local = distribution_params_default.N
-        logging.warning(f"invalid N value. Using default value N = {N_local}")
 
     L_local = get_int_from_file_or_default(stream, "L", distribution_params_default.L)
-    if N_local - L_local > 1e6 or N_local - L_local < 1e2:
-        L_local = N_local - int(1e2)
-        logging.warning(f"invalid L value. Using L = {L_local}")
 
     monte_carlo_experiments_number_local = get_int_from_file_or_default(stream, "monte_carlo_experiments_number", distribution_params_default.MonteCarloExperimentsNumber)
 
@@ -88,14 +76,8 @@ def read_lognormal_law_distribution_params(stream, modelKey, distribution_params
     sigma_local = get_float_from_file_or_default(stream, "sigma", distribution_params_default.sigma)
 
     N_local = get_int_from_file_or_default(stream, "N", distribution_params_default.N)
-    if N_local < 1e3 or N_local > 1e7: 
-        N_local = distribution_params_default.N
-        logging.warning(f"invalid N value. Using default value N = {N_local}")
 
     L_local = get_int_from_file_or_default(stream, "L", distribution_params_default.L)
-    if N_local - L_local > 1e6 or N_local - L_local < 1e2:
-        L_local = N_local - int(1e2)
-        logging.warning(f"invalid L value. Using L = {L_local}")
 
     monte_carlo_experiments_number_local = get_int_from_file_or_default(stream, "monte_carlo_experiments_number", distribution_params_default.MonteCarloExperimentsNumber)
 

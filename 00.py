@@ -98,21 +98,18 @@ def get_best_model(masses):
 
     return best_model, best_popt, x, y
 
-def plot_model(model, popt, x, y, pdf):
-    model_func = models_for_fitting[model].Func
-    y_fit = [model_func(arg, *popt) for arg in x]
+def plot_model(pdf):
+    masses = model_distribution_generators[distribution_params.model](distribution_params)
+    x, y = analyse_sample(masses)
 
     plt.figure()
-    plt.hist(masses, bins = 1000)
+    plt.bar(x, y, color='blue')
     plt.xlabel('mass')
     plt.ylabel('count')
     pdf.savefig()
     plt.close()
 
-    x, y = analyse_sample(masses)
 
-    print(x)
-    print(y)
 
 
 
@@ -133,5 +130,5 @@ distribution_params_default = MassDistributionParams(
 distribution_params = read_model_parameters(distribution_params_default)
 
 pdf = PdfPages("initial.pdf")
-plot_model(distribution_params, pdf)
+plot_model(pdf)
 pdf.close()

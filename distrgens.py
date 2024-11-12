@@ -3,8 +3,8 @@ import numpy as np
 from scipy.special import erfinv
 
 #model mass generators
-def generate_uniform_distribution(distribution_params):
-    return [x for x in np.full(distribution_params.N, distribution_params.M0)]
+# def generate_uniform_distribution(distribution_params):
+#     return [x for x in np.full(distribution_params.N, distribution_params.M0)]
 
 def generate_power_law_distribution(distribution_params):
     uniform_distr = np.random.uniform(low=0.0, high=1.0, size=distribution_params.N)
@@ -24,7 +24,7 @@ def generate_lognormal_law_distribution(distribution_params):
 
 #dictionary for generators for delegate-like usage
 model_distribution_generators = {
-    "A": generate_uniform_distribution,
-    "B": generate_power_law_distribution,
+    # "A": generate_uniform_distribution,
+    # "B": generate_power_law_distribution,
     "C": generate_lognormal_law_distribution
 }
