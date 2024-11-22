@@ -69,7 +69,7 @@ def analyse_sample(masses, accuracy = 1e-5):
     return mass_values, mass_probabilities
 
 def get_best_model(masses):
-    x, y = analyse_sample(masses)
+    x, y = analyse_sample(masses, 0.9)
 
     sigma = np.ones_like(y)
     sigma[np.abs(y) < 1e-20] = np.inf
